@@ -1,0 +1,13 @@
+{
+    "name": "vaxltd/module-product-feed",
+    "description": "VaxLtd Product Feed module",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "VaxLtd\\ProductFeed\\": ""
+        }
+    }
+}

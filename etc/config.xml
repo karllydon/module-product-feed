@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <vaxltd_productfeed>
+            <general>
+                <enabled>1</enabled>
+                <local_save_path></local_save_path>
+                <sftp_host></sftp_host>
+                <sftp_port></sftp_port>
+                <sftp_username></sftp_username>
+                <sftp_password></sftp_password>
+                <sftp_dest_path>/</sftp_dest_path>
+            </general>
+        </vaxltd_productfeed>
+    </default>
+</config>
