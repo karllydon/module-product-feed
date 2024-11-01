@@ -3,8 +3,6 @@
     <module name="VaxLtd_ProductFeed" setup_version="0.0.1">
         <sequence>
             <module name="Magento_Catalog" />
-            <module name="Magento_Backend" />
-            <module name="Magento_Core" />
         </sequence>
     </module>
 </config>

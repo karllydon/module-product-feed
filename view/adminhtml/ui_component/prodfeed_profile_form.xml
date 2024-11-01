@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">prodfeed_profile_form.prodfeed_profile_form_data_source</item>
+            <item name="deps" xsi:type="string">prodfeed_profile_form.prodfeed_profile_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">prodfeed_profile_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">VaxLtd\ProductFeed\Block\Adminhtml\Profile\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">VaxLtd\ProductFeed\Block\Adminhtml\Profile\Edit\DeleteButton</item>
+            <item name="reset" xsi:type="string">VaxLtd\ProductFeed\Block\Adminhtml\Profile\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">VaxLtd\ProductFeed\Block\Adminhtml\Profile\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">VaxLtd\ProductFeed\Block\Adminhtml\Profile\Edit\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="prodfeed_profile_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="prodfeed/profile/save"/>
+        </settings>
+        <dataProvider class="VaxLtd\ProductFeed\Ui\DataProvider\Profile\Form\DataProvider" name="prodfeed_profile_form_data_source">
+            <settings>
+                <requestFieldName>profile_id</requestFieldName>
+                <primaryFieldName>profile_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string"/>
+            </item>
+        </argument>
+        <field name="profile_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">profile_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="entity">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Entity</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataScope" xsi:type="string">entity</item>
+                    <item name="default" xsi:type="string">product</item>
+
+                </item>
+            </argument>
+        </field>
+        <field name="enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Enabled</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="destination_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">VaxLtd\ProductFeed\Model\Config\Source\DestinationList</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Destinations</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataScope" xsi:type="string">destination_ids</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="store_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Store ID</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_one_file_per_object">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export One File Per Object</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="dataScope" xsi:type="string">export_one_file_per_object</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_filter_new_only">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter New Only</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                    <item name="dataScope" xsi:type="string">export_filter_new_only</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_filter_datefrom">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Date From</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="sortOrder" xsi:type="number">82</item>
+                    <item name="dataScope" xsi:type="string">export_filter_datefrom</item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="showsTime" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="storeTimeZone" xsi:type="string">string</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_filter_dateto">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Date From</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="sortOrder" xsi:type="number">84</item>
+                    <item name="dataScope" xsi:type="string">export_filter_dateto</item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="showsTime" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="storeTimeZone" xsi:type="string">string</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_filter_older_x_minutes">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Older X Minutes</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">86</item>
+                    <item name="dataScope" xsi:type="string">export_filter_older_x_minutes</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_filter_last_x_days">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Last X Days</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">88</item>
+                    <item name="dataScope" xsi:type="string">export_filter_last_x_days</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="export_filter_updated_last_x_minutes">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Last X Minutes</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">92</item>
+                    <item name="dataScope" xsi:type="string">export_filter_updated_last_x_minutes</item>
+                </item>
+            </argument>
+        </field>
+
+
+
+
+
+
+        <field name="export_filter_status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Status</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="dataScope" xsi:type="string">export_filter_status</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="export_filter_product_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Product\Type</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Export Filter Product Type</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">110</item>
+                    <item name="dataScope" xsi:type="string">export_filter_product_type</item>
+                </item>
+            </argument>
+        </field>
+
+
+
+
+        <field name="export_filter_product_status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter Product Status</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">120</item>
+                    <item name="dataScope" xsi:type="string">export_filter_product_status</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_filter_product_visibility">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Product\Visibility</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Export Filter Product Visibility</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">130</item>
+                    <item name="dataScope" xsi:type="string">export_filter_product_visibility</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="export_filter_instock_only">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export Filter In Stock Only</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">140</item>
+                    <item name="dataScope" xsi:type="string">export_filter_instock_only</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="save_files_manual_export">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Save Files on Manual Export</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="dataScope" xsi:type="string">save_files_manual_export</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_empty_files">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export Empty Files</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">160</item>
+                    <item name="dataScope" xsi:type="string">export_empty_files</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="customer_group_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Group ID</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">170</item>
+                    <item name="dataScope" xsi:type="string">customer_group_id</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_replace_nl_br">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export Replace NL BR</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">180</item>
+                    <item name="dataScope" xsi:type="string">export_replace_nl_br</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_url_remove_store">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export URL remove store</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">190</item>
+                    <item name="dataScope" xsi:type="string">export_url_remove_store</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="export_strip_tags">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export Strip Tags</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                    <item name="dataScope" xsi:type="string">export_strip_tags</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="manual_export_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Manual Export Enabled</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">210</item>
+                    <item name="dataScope" xsi:type="string">manual_export_enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="start_download_manual_export">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Start Download Manual Export</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">220</item>
+                    <item name="dataScope" xsi:type="string">start_download_manual_export</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="save_files_local_copy">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Save Files Local Copy</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">230</item>
+                    <item name="dataScope" xsi:type="string">save_files_local_copy</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="cronjob_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Cronjob Enabled</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">250</item>
+                    <item name="dataScope" xsi:type="string">cronjob_enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="cronjob_frequency">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Cronjob Frequency</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">260</item>
+                    <item name="dataScope" xsi:type="string">cronjob_frequency</item>
+                </item>
+            </argument>
+        </field>
+        <field name="cronjob_custom_frequency">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Cronjob Custom Frequency</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">270</item>
+                    <item name="dataScope" xsi:type="string">cronjob_custom_frequency</item>
+                </item>
+            </argument>
+        </field>
+        <field name="output_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Output Type</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">280</item>
+                    <item name="dataScope" xsi:type="string">output_type</item>
+                    <item name="default" xsi:type="string">csv</item>
+                </item>
+            </argument>
+        </field>
+        <field name="attributes_to_select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Attributes to Select</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">290</item>
+                    <item name="dataScope" xsi:type="string">attributes_to_select</item>
+                </item>
+            </argument>
+        </field>
+        <field name="filename">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Filename</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">300</item>
+                    <item name="dataScope" xsi:type="string">filename</item>
+                </item>
+            </argument>
+        </field>
+        <field name="encoding">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Encoding</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">310</item>
+                    <item name="dataScope" xsi:type="string">encoding</item>
+                </item>
+            </argument>
+        </field>
+        <field name="xsl_template">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">XSL Template</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">320</item>
+                    <item name="dataScope" xsi:type="string">xsl_template</item>
+                </item>
+            </argument>
+        </field>
+        <field name="test_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Test ID</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">320</item>
+                    <item name="dataScope" xsi:type="string">test_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="category_mapping">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Category Mapping</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">330</item>
+                    <item name="dataScope" xsi:type="string">category_mapping</item>
+                </item>
+            </argument>
+        </field>
+        <field name="taxonomy_source">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Taxonomy Source</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">340</item>
+                    <item name="dataScope" xsi:type="string">taxonomy_source</item>
+                </item>
+            </argument>
+        </field>
+        <field name="remove_pub_folder_from_urls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Remove Pub Folder From URLS</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">350</item>
+                    <item name="dataScope" xsi:type="string">remove_pub_folder_from_urls</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+
+    </fieldset>
+</form>

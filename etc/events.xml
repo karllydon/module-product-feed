@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="vaxltd_productfeed_export">
+        <observer name="vaxltd_productfeed_export_log" instance="VaxLtd\ProductFeed\Observer\Log"/>
+    </event>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="VaxLtd_ProductFeed::menu" title="Product Export" module="VaxLtd_ProductFeed" sortOrder="100" parent="Magento_Catalog::catalog" resource="VaxLtd_ProductFeed::menu"/>
+        <add id="VaxLtd_ProductFeed::manual" title="Manual Export" module="VaxLtd_ProductFeed" sortOrder="10" parent="VaxLtd_ProductFeed::menu" action="prodfeed/manual/index" resource="VaxLtd_ProductFeed::manual"/>
+        <add id="VaxLtd_ProductFeed::log" title="Execution Log" module="VaxLtd_ProductFeed" sortOrder="20" parent="VaxLtd_ProductFeed::menu" action="prodfeed/Log" resource="VaxLtd_ProductFeed::log"/>
+        <add id="VaxLtd_ProductFeed::profile" title="Export Profiles" module="VaxLtd_ProductFeed" sortOrder="30" parent="VaxLtd_ProductFeed::menu" action="prodfeed/Profile" resource="VaxLtd_ProductFeed::profile"/>
+        <add id="VaxLtd_ProductFeed::destination" title="Export Destinations" module="VaxLtd_ProductFeed" sortOrder="40" parent="VaxLtd_ProductFeed::menu" action="prodfeed/Destination" resource="VaxLtd_ProductFeed::destination"/>
+    </menu>
+</config>

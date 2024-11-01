@@ -3,14 +3,14 @@
 namespace VaxLtd\ProductFeed\Model;
 
 use VaxLtd\ProductFeed\Helper\Config;
-use Psr\Log\LoggerInterface;
+use VaxLtd\ProductFeed\Logger\Logger;
 use Magento\Framework\Filesystem\Io\Sftp;
 
 class SftpWrapper
 {
 
     /**
-     * @var LoggerInterface
+     * @var Logger
      */
     protected $logger;
 
@@ -25,7 +25,7 @@ class SftpWrapper
      */
     protected $sftp;
 
-    public function __construct(Config $config, LoggerInterface $logger, Sftp $sftp)
+    public function __construct(Config $config, Logger $logger, Sftp $sftp)
     {
         $this->config = $config;
         $this->logger = $logger;
@@ -56,11 +56,17 @@ class SftpWrapper
         }
     }
 
-    public function uploadFile($file)
+    /**
+     * @param string $fileName
+     * @param string $file
+     * @return bool
+     */
+    public function uploadFile($fileName, $file)
     {
         try {
             $this->connect();
-            $this->sftp->write($this->config->getSftpDestPath() . basename($file), $file);
+            $this->logger->debug("uploading File");
+            $this->sftp->write($this->config->getSftpDestPath() . basename($fileName), $file);
             $this->close();
             return true;
         } catch (\Exception $e) {

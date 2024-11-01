@@ -14,4 +14,45 @@
             </argument>
         </arguments>
     </type>
+    <type name="VaxLtd\ProductFeed\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="VaxLtd\ProductFeed\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">prodfeedLogger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">VaxLtd\ProductFeed\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="prodfeed_log_listing_data_source" xsi:type="string">VaxLtd\ProductFeed\Model\ResourceModel\Log\Grid\Collection</item>
+                <item name="prodfeed_destination_listing_data_source" xsi:type="string">VaxLtd\ProductFeed\Model\ResourceModel\Destination\Grid\Collection</item>
+                <item name="prodfeed_profile_listing_data_source" xsi:type="string">VaxLtd\ProductFeed\Model\ResourceModel\Profile\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="VaxLtd\ProductFeed\Model\ResourceModel\Log\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">prodfeed_export_log</argument>
+            <argument name="resourceModel" xsi:type="string">VaxLtd\ProductFeed\Model\ResourceModel\Log</argument>
+        </arguments>
+    </virtualType>
+     <virtualType name="VaxLtd\ProductFeed\Model\ResourceModel\Destination\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">prodfeed_destination</argument>
+            <argument name="resourceModel" xsi:type="string">VaxLtd\ProductFeed\Model\ResourceModel\Destination</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VaxLtd\ProductFeed\Model\ResourceModel\Profile\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">prodfeed_profile</argument>
+            <argument name="resourceModel" xsi:type="string">VaxLtd\ProductFeed\Model\ResourceModel\Profile</argument>
+        </arguments>
+    </virtualType>
 </config>
