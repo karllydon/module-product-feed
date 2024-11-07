@@ -38,6 +38,8 @@ class Sftp extends AbstractClass
             return true;
         } catch (\Exception $e) {
             $this->errorMsg = "Could not establish sftp connection {$e->getMessage()}";
+            $this->logger->error($this->errorMsg);
+
             return false;
         }
     }
@@ -45,17 +47,20 @@ class Sftp extends AbstractClass
     /**
      * @param \VaxLtd\ProductFeed\Model\Profile $profile
      * @param \VaxLtd\ProductFeed\Model\Destination $destination
+     * @param int $count
+     * @param resource $file
      * @return boolean
      */
-    public function uploadFile($profile, $destination)
+    public function uploadFile($profile, $destination, $count, $file)
     {
         $this->sftp = $this->objectManager->create("Magento\Framework\Filesystem\Io\Sftp");
-        $this->host = $destination->getHost();
+        $this->host = $destination->getHostname();
         $this->port = $destination->getPort();
         $this->username = $destination->getUsername();
         $this->password = $destination->getPassword();
 
-        if ($destination->getTimeout()){
+        
+        if ($destination->getTimeout()) {
             $this->timeout = $destination->getTimeout();
         }
 
@@ -65,23 +70,19 @@ class Sftp extends AbstractClass
             $connectTest = $this->testConnection();
 
             if (!$connectTest) {
-                throw new \Exception($this->errorMsg);
+                return false;
             }
 
-            $fp = fopen('php://temp', 'r+b');
-            foreach ($this->rows as $product) {
-                fputcsv($fp, $product);
-            }
-            rewind($fp);
-            $this->sftp->write("{$profile->getPath()}{$profile->getFilename()}.{$profile->getFormat()}", rtrim(stream_get_contents($fp), "\n"));
-            $this->sftp->close();
+            $this->sftp->write("{$destination->getPath()}{$profile->getFilename()}.{$profile->getOutputType()}", rtrim(stream_get_contents($file), "\n"));
             $end = time();
+            $this->duration = $end - $start;
+            $this->successMsg = "Exported {$count} products in {$this->duration} seconds"; 
             $this->exportSuccess = true;
         } catch (\Exception $e) {
             $this->errorMsg = "Product feed sftp error {$e->getMessage()}";
             $this->logger->error($this->errorMsg);
         } finally {
-            $this->dispatchExportEvent(['type' => 'sftp', 'records' => count($this->rows) - 1, 'errorMsg' => $this->errorMsg, 'duration' => $end - $start]);
+            $this->sftp->close();
             return $this->exportSuccess;
         }
     }

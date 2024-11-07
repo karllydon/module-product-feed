@@ -11,6 +11,12 @@ class Local extends AbstractClass
      */
     protected $filesystem = null;
 
+
+    /**
+     * @var string
+     */
+    protected $exportDirectory;
+
     /**
      * @throws \Exception
      * @return bool
@@ -18,8 +24,7 @@ class Local extends AbstractClass
     public function testConnection()
     {
         try {
-            $filepath = $this->config->getLocalSavePath();
-            $exportDirectory = $this->fixBasePath($filepath);
+            $this->exportDirectory = $this->fixBasePath($this->exportDirectory);
             // Check for forbidden folders
             $forbiddenFolders = [
                 $this->filesystem->getDirectoryRead(
@@ -27,22 +32,23 @@ class Local extends AbstractClass
                 )->getAbsolutePath()
             ];
             foreach ($forbiddenFolders as $forbiddenFolder) {
-                if (realpath($exportDirectory) == $forbiddenFolder) {
+                if (realpath($this->exportDirectory) == $forbiddenFolder) {
                     throw new \Exception('It is not allowed to save export files in the directory you have specified. Please change the local export directory to be located in the ./var/ folder for example. Do not use the Magento root directory for example.');
                 }
             }
 
-            if (!file_exists($filepath)) {
-                $mkdirResult = mkdir($filepath, 0755, true);
-                if (!$mkdirResult) throw new \Exception('The specified local directory does not exist. We could not create it either. Please make sure the parent directory is writable or create the directory manually');
+            if (!file_exists($this->exportDirectory)) {
+                $mkdirResult = mkdir($this->exportDirectory, 0755, true);
+                if (!$mkdirResult)
+                    throw new \Exception('The specified local directory does not exist. We could not create it either. Please make sure the parent directory is writable or create the directory manually');
             }
-            
-            $connectionResult = opendir($exportDirectory);
-            
-            if (!$connectionResult || !is_writable($exportDirectory)){
+
+            $connectionResult = opendir($this->exportDirectory);
+
+            if (!$connectionResult || !is_writable($this->exportDirectory)) {
                 throw new \Exception(" 'Could not open local export directory for writing. Please make sure that we have rights to read and write in the directory");
-            }
-            else return true;
+            } else
+                return true;
         } catch (\Exception $e) {
             $this->errorMsg = $e->getMessage();
             return false;
@@ -51,11 +57,14 @@ class Local extends AbstractClass
 
     /**
      * @param \VaxLtd\ProductFeed\Model\Profile $profile
-     * @throws \VaxLtd\ProductFeed\Model\Destination $destination
+     * @param \VaxLtd\ProductFeed\Model\Destination $destination
+     *@param int $count 
+     * @param resource file
      * @return bool
      */
-    public function uploadFile($profile, $destination)
+    public function uploadFile($profile, $destination, $count, $file)
     {
+        $this->exportDirectory = $destination->getPath();
 
         $this->filesystem = $this->objectManager->create('\Magento\Framework\Filesystem');
         $start = time();
@@ -65,21 +74,18 @@ class Local extends AbstractClass
             if (!$connectTest) {
                 throw new \Exception($this->errorMsg);
             }
-            $exportDirectory = $this->fixBasePath($profile->getPath());
-            $target = "{$exportDirectory}{$profile->getFilename()}.{$profile->getFormat()}";
+            $target = "{$this->exportDirectory}{$profile->getFilename()}.{$profile->getOutputType()}";
             $fp = fopen($target, 'w');
-            foreach ($this->rows as $product) {
-                fputcsv($fp, $product);
-            }
+            fputs($fp, rtrim(stream_get_contents($file), "\n"));
             fclose($fp);
             $end = time();
+            $this->duration = $end - $start;
             $this->exportSuccess = true;
+            $this->successMsg = "Exported {$count} products in {$this->duration} seconds"; 
         } catch (\Exception $e) {
             $this->errorMsg = "Product feed local save error {$e->getMessage()}";
             $this->logger->error($this->errorMsg);
-        }
-        finally {
-            $this->dispatchExportEvent(['type' => 'local' , 'records' => count($this->rows) - 1, 'errorMsg' => $this->errorMsg, 'duration' => $end - $start]);
+        } finally {
             return $this->exportSuccess;
         }
     }

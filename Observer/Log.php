@@ -39,11 +39,12 @@ class Log implements ObserverInterface
         $data = $observer->getData('eventData');
         $log = $this->logFactory->create();
         $log->setExportType($data['type']);
+        $log->setDestinationIds($data['destination_id']);
 
         if ($data['errorMsg']) {
             $log->setRecordsExported(0)->setResult(0)->setResultMessage($data['errorMsg'])->save();
         } else {
-            $log->setRecordsExported($data['records'])->setResult(1)->setResultMessage("Exported {$data['records']} products in {$data['duration']} seconds")->save();
+            $log->setRecordsExported($data['records'])->setResult(1)->setResultMessage($data['successMsg'])->save();
         }
         $this->logger->info("Logged Product Export {$log->getLogId()}");
     }

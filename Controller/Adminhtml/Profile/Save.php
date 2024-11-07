@@ -77,7 +77,9 @@ class Save extends \Magento\Backend\App\Action
                 return $resultRedirect->setPath('*/*/');
             }
 
-
+            if ($model->getId()){
+                $model->saveLastModificationNow();
+            }
 
             $this->inlineTranslation->suspend();
             try {

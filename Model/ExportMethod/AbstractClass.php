@@ -4,7 +4,7 @@ namespace VaxLtd\ProductFeed\Model\ExportMethod;
 
 use Magento\Framework\ObjectManagerInterface;
 use VaxLtd\ProductFeed\Logger\Logger;
-use VaxLtd\ProductFeed\Model\ExportMethod\ExportInterface;
+use VaxLtd\ProductFeed\Model\ExportMethod\ExportMethodInterface;
 use VaxLtd\ProductFeed\Model\ProductFeed;
 use VaxLtd\Productfeed\Helper\Config;
 use Magento\Framework\Event\ManagerInterface;
@@ -42,10 +42,22 @@ abstract class AbstractClass implements ExportMethodInterface
      */
     protected $errorMsg = null;
 
+
+    /**
+     * @var string
+     */
+    protected $successMsg = null;
+
     /**
      * @var bool
      */
     protected $exportSuccess = false;
+
+
+    /**
+     * @var int
+     */
+    protected $duration = null;
 
     // /**
     //  * @var \Xtento\ProductExport\Model\DestinationFactory
@@ -65,17 +77,31 @@ abstract class AbstractClass implements ExportMethodInterface
         Config $config,
         ProductFeed $prodfeed,
         ObjectManagerInterface $objectManager,
-        ManagerInterface $eventManager
+        ManagerInterface $eventManager,
     ) {
         $this->logger = $logger;
         $this->objectManager = $objectManager;
-        $this->rows = $prodfeed->generateProductFeed();
         $this->config = $config;
         $this->eventManager = $eventManager;
     }
+    /**
+     * @param string $type
+     * @param int $count
+     * @return void
+     */
+    public function dispatchExportEvent($destination_id, $type, $count)
+    {
+        $this->eventManager->dispatch('vaxltd_productfeed_export', ['eventData' => ['destination_id' => $destination_id, 'type' => $type, 'records' => $count, 'errorMsg' => $this->errorMsg, 'successMsg' => $this->successMsg]]);
+    }
 
-    protected function dispatchExportEvent($data = null){
-        $this->eventManager->dispatch('vaxltd_productfeed_export', ['eventData' => $data]);
+    public function getErrorMsg()
+    {
+        return $this->errorMsg;
+    }
+
+    public function getSuccessMsg()
+    {
+        return $this->successMsg;
     }
 
 }
