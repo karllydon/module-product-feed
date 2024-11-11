@@ -38,7 +38,7 @@ class Local extends AbstractClass
             }
 
             if (!file_exists($this->exportDirectory)) {
-                $mkdirResult = mkdir($this->exportDirectory, 0755, true);
+                $mkdirResult = mkdir($this->exportDirectory, 0777, true);
                 if (!$mkdirResult)
                     throw new \Exception('The specified local directory does not exist. We could not create it either. Please make sure the parent directory is writable or create the directory manually');
             }

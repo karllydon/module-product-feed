@@ -59,11 +59,6 @@ abstract class AbstractClass implements ExportMethodInterface
      */
     protected $duration = null;
 
-    // /**
-    //  * @var \Xtento\ProductExport\Model\DestinationFactory
-    //  */
-    // protected $destinationFactory;
-
     /**
      * AbstractClass constructor.
      * @param Logger $logger

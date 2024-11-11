@@ -86,8 +86,7 @@
                 <column xsi:type="boolean" name="start_download_manual_export" nullable="false" default="true" comment="Start download after manual export"/>
                 <column xsi:type="boolean" name="save_files_local_copy" nullable="false" default="true" comment="Save local copies of exports"/>
                 <column xsi:type="boolean" name="cronjob_enabled" nullable="false" comment="Cronjob export enabled"/>
-                <column xsi:type="text" name="cronjob_frequency" comment="Cronjob frequency"/>
-                <column xsi:type="text" name="cronjob_custom_frequency" comment="Cronjob custom frequency expression"/>
+                <column xsi:type="text" name="cronjob_frequencies" comment="Cronjob frequencies as comma separated list"/>
                 <column xsi:type="varchar" name="output_type" nullable="false" length="255" default="xsl" comment="Export output generator"/>
                 <column xsi:type="text" name="attributes_to_select" comment="Performance Settings: Specific attributes"/>
                 <column xsi:type="varchar" name="filename" nullable="false" length="255" comment="Export filename (only All-fields-in-XML)"/>

@@ -738,16 +738,6 @@ class ProductFeed
         }
         $this->writeArray = &$originalWriteArray;
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -783,92 +773,6 @@ class ProductFeed
             }
         }
     }
-
-    /*
-     * Check if field should be fetched from the DB
-     */
-    protected function fieldLoadingRequired($field)
-    {
-        #return true;
-        if ($this->fieldsToFetch === false) {
-            $this->initFieldsToFetch();
-        }
-        if (empty($this->fieldsToFetch)) {
-            return true;
-        }
-        $fieldHash = sha1($field);
-        if (isset($this->fieldsNotFound[$fieldHash])) {
-            return false;
-        }
-        if (isset($this->fieldsFound[$fieldHash])) {
-            return true;
-        }
-        if (!in_array($field, $this->fieldsToFetch)) {
-            foreach ($this->fieldsToFetch as $fieldToFetch) {
-                if (stristr($fieldToFetch, strval($field))) {
-                    $this->fieldsFound[$fieldHash] = true;
-                    return true;
-                }
-            }
-            $this->fieldsNotFound[$fieldHash] = true;
-            return false;
-        }
-        $this->fieldsFound[$fieldHash] = true;
-        return true;
-    }
-
-    /*
-     * Checks XSL template if field X is used there at all and thus if it should be fetched to avoid unnecessary DB queries and memory usage.
-     */
-    protected function initFieldsToFetch()
-    {
-        // $this->fieldsToFetch = [];
-        // if ($this->profile->getOutputType() == 'csv' || $this->profile->getOutputType() == 'xml') {
-        //     // Fetch all fields
-        //     return $this;
-        // }
-        // $xslTemplate = $this->profile->getXslTemplate();
-        // $loadTemplateFromFile = strpos($xslTemplate, '<') === false;
-        // if ($loadTemplateFromFile) {
-        //     $xslTemplate = \Magento\Framework\App\ObjectManager::getInstance()->get('\Xtento\ProductExport\Model\Output\Xsl')->fixBasePath($xslTemplate);
-        //     try {
-        //         $fileExists = file_exists($xslTemplate);
-        //     } catch (\Exception $e) {
-        //         $fileExists = false;
-        //     }
-        //     if (!$fileExists) {
-        //         return $this; // Fetch all fields
-        //     }
-        //     // XSL Template is loaded from file, fetch fields from there
-        //     if (!empty($xslTemplate)) {
-        //         try {
-        //             $xslTemplate = file_get_contents($xslTemplate);
-        //         } catch (\Exception $e) {s
-        //             $xslTemplate = '';
-        //         }
-        //     }
-        //     if (empty($xslTemplate)) {
-        //         return $this; // Fetch all fields
-        //     }
-        // }
-        // preg_match_all("/(select=\"([^\"]+)\"|test=\"([^\"]+)\")/", $xslTemplate, $fieldMatches);
-        // if (isset($fieldMatches[1])) {
-        //     foreach ($fieldMatches[1] as $fieldMatch) {
-        //         if (!in_array($fieldMatch, $this->fieldsToFetch)) {
-        //             array_push($this->fieldsToFetch, $fieldMatch);
-        //         }
-        //     }
-        // }
-        // // Fields which must be fetched always
-        // array_push($this->fieldsToFetch, 'entity_id');
-        // array_push($this->fieldsToFetch, 'created_at');
-        // #var_dump($fieldMatches[1], $this->_fieldsToFetch); die();
-        // return $this;
-    }
-
-
-
-
 
 
     /**

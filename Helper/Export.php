@@ -15,7 +15,9 @@ class Export
 
 
     private $EXPORTTYPES = [
-        "console" =>0
+        "console" => 0,
+        "manual" => 1,
+        "cron" => 2
     ];
 
     /**
@@ -121,15 +123,15 @@ class Export
             $result = $result && $exportResult;
             rewind($file);
         }
-        fclose($file);
-        return $result;
+
+        if ($this->EXPORTTYPES[$exportType] == 1 && $result == true) {
+            return $file;
+
+        } else {
+            fclose($file);
+            return $result;
+        }
+
     }
-
-
-
-
-
-
-
 
 }

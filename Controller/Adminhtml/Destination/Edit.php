@@ -79,7 +79,6 @@ class Edit extends Action
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('destination_id');
         $model = $this->_objectManager->create('VaxLtd\ProductFeed\Model\Destination');
-        $this->logger->debug("EDIT ID " . $id);
         // 2. Initial checking
         if ($id) {
             $model->load($id);
@@ -95,7 +94,6 @@ class Edit extends Action
         // 3. Set entered data if was error when we do save
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
 
-        $this->logger->debug("EDIT DATA " . print_r($data, true));
 
 
         if (!empty($data)) {

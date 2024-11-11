@@ -514,25 +514,14 @@
                 </item>
             </argument>
         </field>
-        <field name="cronjob_frequency">
+        <field name="cronjob_frequencies">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Cronjob Frequency</item>
+                    <item name="label" xsi:type="string" translate="true">Cronjob Frequencies</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="sortOrder" xsi:type="number">260</item>
-                    <item name="dataScope" xsi:type="string">cronjob_frequency</item>
-                </item>
-            </argument>
-        </field>
-        <field name="cronjob_custom_frequency">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Cronjob Custom Frequency</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="sortOrder" xsi:type="number">270</item>
-                    <item name="dataScope" xsi:type="string">cronjob_custom_frequency</item>
+                    <item name="dataScope" xsi:type="string">cronjob_frequencies</item>
                 </item>
             </argument>
         </field>

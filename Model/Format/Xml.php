@@ -45,10 +45,8 @@ class Xml extends AbstractFormat
                 $this->throwXmlException(__("Something is wrong with the internally processed XML markup"));
             }
             $fp = fopen('php://temp', 'r+b');
-            $this->logger->debug("XML DOC {$output}");
             fputs($fp, $output);
             rewind($fp);
-
             libxml_use_internal_errors($useInternalXmlErrors);
 
             return $fp;
@@ -107,7 +105,14 @@ class Xml extends AbstractFormat
         if (is_numeric($key) && $parentKey == '') {
             $key = 'object';
         }
-        $iteratingKeys = \Xtento\ProductExport\Model\Output\AbstractOutput::$iteratingKeys;
+    
+        $iteratingKeys = [
+            'items',
+            'custom_options',
+            'product_attributes',
+            'product_options'
+        ];
+    
         if (is_numeric($key) && $parentKey !== '') {
             if (in_array($parentKey, $iteratingKeys) || isset($iteratingKeys[$parentKey])) {
                 if (isset($iteratingKeys[$parentKey])) {

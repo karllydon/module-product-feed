@@ -1,0 +1,35 @@
+<form action="<?= $block->escapeUrl($block->getUrl('prodfeed/manual/manualpost')) ?>" method="post"
+    id="manual-export-form" class="form">
+    <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>">
+    <div>
+        <label for="profile_select">Profile to Export</label>
+
+        <select name="profile_select" id="profile_select" required>
+            <?php
+            $profiles = $block->getProfiles();
+            foreach ($profiles as $profile) {
+                echo "<option value={$profile['value']}>{$profile['label']}</option>";
+            }
+            ?>
+        </select>
+        <br/>
+        <br/>
+        <label for="download">Download File</label>
+        <select name="download" id="download" required>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+        <br />
+        <br />
+        <label for="entity_id_from">Entity ID From</label>
+        <input type="text" id="entity_id_from" name="entity_id_from" />
+        <label for="entity_id_to">Entity ID To</label>
+        <input type="text" id="entity_id_to" name="entity_id_to" />
+        <br />
+        <br />
+        <button type="submit" name="manual_submit_action" title="<?= $block->escapeHtml(__('Submit')) ?>"
+            class="action">
+            <span><?= $block->escapeHtml(__('Submit')) ?></span>
+        </button>
+    </div>
+</form>

@@ -199,36 +199,5 @@ class ExportCommand extends Command
             $this->logger->error("Could not export products: {$e}");
             return \Magento\Framework\Console\Cli::RETURN_FAILURE;
         }
-
-
-        // try {
-        //     $this->appState->setAreaCode(Area::AREA_CRONTAB);
-        //     $configLoader = $this->objectManager->get(\Magento\Framework\ObjectManager\ConfigLoaderInterface::class);
-        //     $this->objectManager->configure($configLoader->load(Area::AREA_CRONTAB));
-        //     $this->areaList->getArea(Area::AREA_CRONTAB)->load(Area::PART_TRANSLATE);
-        // } catch (\Magento\Framework\Exception\LocalizedException $e) {
-        //     // intentionally left empty
-        // }
-
-        // try {
-        //     $output->writeln("Beginning product export");
-        //     if (!$this->config->isEnabled()) {
-        //         $output->writeln("<error>Product export disabled</error>");
-        //         $this->logger->info("Product export disabled");
-        //         return \Magento\Framework\Console\Cli::RETURN_FAILURE;
-        //     }
-        //     $exportSuccess = $this->helper->export("local", "feedoptimise.csv");
-        //     if (!$exportSuccess){
-        //         throw new \Exception("SFTP Export Failed");
-        //     }
-
-        //     $output->writeln("<info>Product export successful.</info>");
-        //     $this->logger->info("<info>Product export successful.</info>");
-        //     return \Magento\Framework\Console\Cli::RETURN_SUCCESS;
-        // } catch (\Exception $e) {
-        //     $output->writeln("<error>Could not export products: {$e}</error>");
-        //     $this->logger->error("Could not export products: {$e}");
-        //     return \Magento\Framework\Console\Cli::RETURN_FAILURE;
-        // }
     }
 }
